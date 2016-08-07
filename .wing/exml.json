@@ -1,0 +1,12 @@
+{
+    "1566053566b": {
+        "backgroundType": "user",
+        "backgroundColor": "#1D98C8",
+        "backgroundAlpha": 50
+    },
+    "1566506f30f": {
+        "path": "Eui\\GameBegin.ts",
+        "class": "GameBegin",
+        "parentPath": ""
+    }
+}
