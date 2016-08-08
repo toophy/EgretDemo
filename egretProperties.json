@@ -16,13 +16,13 @@
       "name": "eui"
     },
     {
-      "name": "game"
+      "name": "res"
     },
     {
       "name": "tween"
     },
     {
-      "name": "res"
+      "name": "game"
     }
   ]
 }

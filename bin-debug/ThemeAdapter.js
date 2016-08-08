@@ -26,25 +26,31 @@
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 //////////////////////////////////////////////////////////////////////////////////////
-var LoadingUI = (function (_super) {
-    __extends(LoadingUI, _super);
-    function LoadingUI() {
-        _super.call(this);
-        this.createView();
+var ThemeAdapter = (function () {
+    function ThemeAdapter() {
     }
-    var d = __define,c=LoadingUI,p=c.prototype;
-    p.createView = function () {
-        this.textField = new egret.TextField();
-        this.addChild(this.textField);
-        this.textField.y = 300;
-        this.textField.width = 480;
-        this.textField.height = 100;
-        this.textField.textAlign = "center";
+    var d = __define,c=ThemeAdapter,p=c.prototype;
+    /**
+     * 解析主题
+     * @param url 待解析的主题url
+     * @param compFunc 解析完成回调函数，示例：compFunc(e:egret.Event):void;
+     * @param errorFunc 解析失败回调函数，示例：errorFunc():void;
+     * @param thisObject 回调的this引用
+     */
+    p.getTheme = function (url, compFunc, errorFunc, thisObject) {
+        function onGetRes(e) {
+            compFunc.call(thisObject, e);
+        }
+        function onError(e) {
+            if (e.resItem.url == url) {
+                RES.removeEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, onError, null);
+                errorFunc.call(thisObject);
+            }
+        }
+        RES.addEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, onError, null);
+        RES.getResByUrl(url, onGetRes, this, RES.ResourceItem.TYPE_TEXT);
     };
-    p.setProgress = function (current, total) {
-        this.textField.text = "Loading..." + current + "/" + total;
-    };
-    return LoadingUI;
-}(egret.Sprite));
-egret.registerClass(LoadingUI,'LoadingUI');
-//# sourceMappingURL=LoadingUI.js.map
+    return ThemeAdapter;
+}());
+egret.registerClass(ThemeAdapter,'ThemeAdapter',["eui.IThemeAdapter"]);
+//# sourceMappingURL=ThemeAdapter.js.map

@@ -5,14 +5,14 @@ var game_file_list = [
 	"libs/modules/egret/egret.js",
 	"libs/modules/egret/egret.native.js",
 	"libs/modules/eui/eui.js",
+	"libs/modules/res/res.js",
+	"libs/modules/tween/tween.js",
 	"libs/modules/game/game.js",
 	"libs/modules/game/game.native.js",
-	"libs/modules/tween/tween.js",
-	"libs/modules/res/res.js",
-	"bin-debug/Eui/aaaa.js",
-	"bin-debug/Eui/GameBegin.js",
+	"bin-debug/AssetAdapter.js",
 	"bin-debug/LoadingUI.js",
 	"bin-debug/Main.js",
+	"bin-debug/ThemeAdapter.js",
 	//----auto game_file_list end----
 ];
 

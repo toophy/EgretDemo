@@ -26,25 +26,35 @@
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 //////////////////////////////////////////////////////////////////////////////////////
-var LoadingUI = (function (_super) {
-    __extends(LoadingUI, _super);
-    function LoadingUI() {
-        _super.call(this);
-        this.createView();
+var AssetAdapter = (function () {
+    function AssetAdapter() {
     }
-    var d = __define,c=LoadingUI,p=c.prototype;
-    p.createView = function () {
-        this.textField = new egret.TextField();
-        this.addChild(this.textField);
-        this.textField.y = 300;
-        this.textField.width = 480;
-        this.textField.height = 100;
-        this.textField.textAlign = "center";
+    var d = __define,c=AssetAdapter,p=c.prototype;
+    /**
+     * @language zh_CN
+     * 解析素材
+     * @param source 待解析的新素材标识符
+     * @param compFunc 解析完成回调函数，示例：callBack(content:any,source:string):void;
+     * @param thisObject callBack的 this 引用
+     */
+    p.getAsset = function (source, compFunc, thisObject) {
+        function onGetRes(data) {
+            compFunc.call(thisObject, data, source);
+        }
+        if (RES.hasRes(source)) {
+            var data = RES.getRes(source);
+            if (data) {
+                onGetRes(data);
+            }
+            else {
+                RES.getResAsync(source, onGetRes, this);
+            }
+        }
+        else {
+            RES.getResByUrl(source, onGetRes, this, RES.ResourceItem.TYPE_IMAGE);
+        }
     };
-    p.setProgress = function (current, total) {
-        this.textField.text = "Loading..." + current + "/" + total;
-    };
-    return LoadingUI;
-}(egret.Sprite));
-egret.registerClass(LoadingUI,'LoadingUI');
-//# sourceMappingURL=LoadingUI.js.map
+    return AssetAdapter;
+}());
+egret.registerClass(AssetAdapter,'AssetAdapter',["eui.IAssetAdapter"]);
+//# sourceMappingURL=AssetAdapter.js.map
